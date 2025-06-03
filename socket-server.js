@@ -34,8 +34,9 @@ io.on("connection", (socket) => {
 
     await db.collection("chatboxes").updateOne(
       { _id: new ObjectId(chatboxId) },
-      { $push: { messages: message } }
-    );
+      {$push: { messages: message },
+      $set: { lastModified: new Date() }
+      });
 
     io.to(chatboxId).emit("receive-message", message); // 🔄 broadcast to all in room
   });
