@@ -14,11 +14,11 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("✅ Socket connected:", socket.id);
+  //console.log("✅ Socket connected:", socket.id);
 
   socket.on("join-room", (chatboxId) => {
     socket.join(chatboxId);
-    console.log(`🟢 Joined room: ${chatboxId}`);
+    //console.log(`🟢 Joined room: ${chatboxId}`);
   });
 
   socket.on("send-message", async (data) => {
@@ -42,10 +42,10 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    console.log("❌ Socket disconnected:", socket.id);
+    //console.log("❌ Socket disconnected:", socket.id);
   });
 });
 
 server.listen(3002, () => {
-  console.log("🚀 WebSocket Server listening on http://localhost:3002");
+  //console.log("🚀 WebSocket Server listening on http://localhost:3002");
 });
