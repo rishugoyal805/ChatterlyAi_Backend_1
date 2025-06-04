@@ -59,6 +59,46 @@ io.on("connection", (socket) => {
     }
   });
 
+   socket.on("edit-message", async ({ messageId, newText, chatboxId }) => {
+    try {
+      const { db } = await connectToDatabase();
+
+      await db.collection("frnd_msg").updateOne(
+        { _id: new ObjectId(messageId) },
+        { $set: { text: newText } }
+      );
+
+      io.to(chatboxId).emit("message-edited", {
+        messageId,
+        newText,
+      });
+    } catch (error) {
+      console.error("❌ Error in edit-message:", error);
+      socket.emit("error-message", { error: "Failed to edit message" });
+    }
+  });
+
+  // ✅ Delete Message
+  socket.on("delete-message", async ({ messageId, chatboxId }) => {
+    try {
+      const { db } = await connectToDatabase();
+
+      await db.collection("frnd_msg").deleteOne({ _id: new ObjectId(messageId) });
+
+      await db.collection("chatboxes").updateOne(
+        { _id: new ObjectId(chatboxId) },
+        { $pull: { messages: new ObjectId(messageId) } }
+      );
+
+      io.to(chatboxId).emit("message-deleted", {
+        messageId,
+      });
+    } catch (error) {
+      console.error("❌ Error in delete-message:", error);
+      socket.emit("error-message", { error: "Failed to delete message" });
+    }
+  });
+
   socket.on("disconnect", () => {
     //console.log("❌ Socket disconnected:", socket.id);
   });
