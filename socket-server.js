@@ -122,7 +122,7 @@ io.on("connection", (socket) => {
       // Get AI response
       let aiText = "Sorry, I'm having trouble responding right now.";
       try {
-        const aiRes = await axios.post("https://askdemia1.onrender.com/chat", {
+        const aiRes = await axios.post("https://askdemia.onrender.com/chat", {
           user_id: senderName,
           message: text,
         });
