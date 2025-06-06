@@ -111,6 +111,14 @@ io.on("connection", (socket) => {
         timestamp: new Date(),
       });
 
+      // Immediately broadcast the user message to all clients in the room
+      io.to(roomId).emit("receive-user-message", {
+        senderName,
+        text,
+        role,
+        timestamp: new Date(), // optional, for sorting
+      });
+
       // Get AI response
       let aiText = "Sorry, I'm having trouble responding right now.";
       try {
