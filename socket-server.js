@@ -99,6 +99,55 @@ io.on("connection", (socket) => {
     }
   });
 
+  socket.on("send-ai-message", async ({ chatboxId, senderName, text, role }) => {
+    try {
+      // Save user message
+      const userMsgRes = await db.collection("messages").insertOne({
+        senderName,
+        text,
+        role,
+        timestamp: new Date(),
+      });
+
+      // Get AI response
+      const aiRes = await axios.post("https://askdemia1.onrender.com/chat", {
+        user_id: senderName,
+        message: text,
+      });
+
+      const aiText = aiRes?.data?.response || "Unexpected response.";
+
+      // Save AI response
+      const aiMsgRes = await db.collection("messages").insertOne({
+        senderName: "AI",
+        text: aiText,
+        role: "ai",
+        timestamp: new Date(),
+      });
+
+      // Emit AI response back to sender
+      io.to(chatboxId).emit("receive-bot-message", {
+        role: "bot",
+        text: aiText,
+      });
+
+      // Optionally: Save message pair if needed
+      await db.collection("conversations").updateOne(
+        { _id: new ObjectId(chatboxId) },
+        {
+          $push: {
+            messages: {
+              userMessageId: userMsgRes.insertedId,
+              aiResponseId: aiMsgRes.insertedId,
+            },
+          },
+        }
+      );
+    } catch (err) {
+      console.error("Socket error:", err);
+      socket.emit("error-message", "Something went wrong on the server.");
+    }
+  });
   socket.on("disconnect", () => {
     //console.log("❌ Socket disconnected:", socket.id);
   });
