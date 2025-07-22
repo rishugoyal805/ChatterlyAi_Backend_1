@@ -104,6 +104,11 @@ io.on("connection", (socket) => {
     io.emit("receive-edited-message", { messageId, newText, senderEmail });
   });
 
+  socket.on("new-chat-created", ({ convoId, userEmail }) => {
+    // Send to everyone except the sender
+    socket.broadcast.emit("receive-new-chat", { convoId, userEmail });
+  });
+
   socket.on("send-ai-message", async ({ roomId, senderName, text, role }) => {
     try {
       const { db } = await connectToDatabase()
