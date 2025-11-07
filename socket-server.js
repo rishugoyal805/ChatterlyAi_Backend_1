@@ -104,6 +104,20 @@ io.on("connection", (socket) => {
     io.emit("receive-edited-message", { messageId, newText, senderEmail });
   });
 
+  // When a new chat is created
+  socket.on("chat-created", ({ chatbox, users }) => {
+    users.forEach((userEmail) => {
+      io.to(userEmail).emit("chat-created", { chatbox });
+    });
+  });
+
+  // When a chat is deleted
+  socket.on("chat-deleted", ({ chatboxId, users }) => {
+    users.forEach((userEmail) => {
+      io.to(userEmail).emit("chat-deleted", { chatboxId });
+    });
+  });
+
   socket.on("send-ai-message", async ({ roomId, senderName, text, role }) => {
     try {
       const { db } = await connectToDatabase()
@@ -166,6 +180,7 @@ io.on("connection", (socket) => {
       socket.emit("error-message", "Something went wrong on the server.");
     }
   });
+  
   socket.on("disconnect", () => {
     //console.log("❌ Socket disconnected:", socket.id);
   });
