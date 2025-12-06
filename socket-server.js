@@ -8,6 +8,7 @@ import axios from "axios";
 
 const app = express();
 const server = http.createServer(app);
+const onlineUsers = new Set();
 const io = new Server(server, {
   cors: {
     origin: "*", // In production, restrict this
@@ -19,6 +20,17 @@ io.on("connection", (socket) => {
     socket.join(roomId);
     console.log(`✅ User ${socket.id} joined room: ${roomId}`);
   });
+
+  socket.on("join-room", (email) => {
+  socket.email = email;
+  onlineUsers.add(email);
+
+  // Notify all users somebody is online
+  io.emit("user-online-status", {
+    email,
+    isOnline: true,
+  });
+});
 
   socket.on("send-message", async (data) => {
     const { senderEmail, roomId, text } = data;
@@ -183,8 +195,16 @@ io.on("connection", (socket) => {
   });
   
   socket.on("disconnect", () => {
-    //console.log("❌ Socket disconnected:", socket.id);
-  });
+  if (socket.email) {
+    onlineUsers.delete(socket.email);
+
+    io.emit("user-online-status", {
+      email: socket.email,
+      isOnline: false,
+    });
+  }
+});
+
 });
 
 const PORT = process.env.PORT || 3002;
