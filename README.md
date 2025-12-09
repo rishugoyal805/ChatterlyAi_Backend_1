@@ -19,8 +19,8 @@ Helper socket server with database integration.
 Create a `.env` file in the root of the project with the following keys:
 
 MONGO_URI=<your_mongodb_connection_string>
-
-The `MONGO_URI` value is loaded inside `lib/database.js` to establish the database connection.
+MONGO_DB=<your_database_name>
+The `MONGO_URI` and `MONGO_DB` value is loaded inside `lib/database.js` to establish the database connection.
 Make sure to never commit your `.env` file to version control.
 
 ## Requirements
