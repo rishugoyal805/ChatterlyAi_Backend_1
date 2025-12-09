@@ -9,10 +9,11 @@ This README is intentionally minimal and practical — this repo is a helper mic
 
 ## What this repo contains
 - socket-server.js — the single-server entry point (run with `node socket-server.js`)
+- lib/database.js — MongoDB connection helper used by socket-server.js
 - package.json / package-lock.json — dependencies (Express, Socket.IO, dotenv, axios, socket.io-client)
 - .gitignore
 
-No database, no extra folders — just the helper socket server.
+Helper socket server with database integration.
 
 ## Requirements
 - Node.js (recommended v16+ or a current LTS)
