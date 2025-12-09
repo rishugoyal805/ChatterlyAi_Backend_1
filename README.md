@@ -15,8 +15,7 @@ This README is intentionally minimal and practical — this repo is a helper mic
 
 Helper socket server with database integration.
 
-Environment Variables
----------------------
+## Environment Variables
 Create a `.env` file in the root of the project with the following keys:
 
 MONGO_URI=<your_mongodb_connection_string>
