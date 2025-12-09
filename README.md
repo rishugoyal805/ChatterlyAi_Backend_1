@@ -15,6 +15,15 @@ This README is intentionally minimal and practical — this repo is a helper mic
 
 Helper socket server with database integration.
 
+Environment Variables
+---------------------
+Create a `.env` file in the root of the project with the following keys:
+
+MONGO_URI=<your_mongodb_connection_string>
+
+The `MONGO_URI` value is loaded inside `lib/database.js` to establish the database connection.
+Make sure to never commit your `.env` file to version control.
+
 ## Requirements
 - Node.js (recommended v16+ or a current LTS)
 - npm (or yarn)
