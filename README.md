@@ -2,34 +2,25 @@
 
 # ChatterlyAI — Helper Socket Server (chatterlyAI-Backend1)
 
-A lightweight Socket.IO server providing realtime messaging for the ChatterlyAI ecosystem.
+A lightweight Socket.IO server providing realsitime messaging for the ChatterlyAI ecosystem.
 A lightweight Node.js Socket.IO helper server used by the ChatterlyAI project. This repository contains a focused, single-purpose realtime socket server (socket-server.js) intended to be used as a helper/service — either deployed (e.g., Render) or run locally.
 
 This README is intentionally minimal and practical — this repo is a helper microservice, not a full standalone application.
 
 ## What this repo contains
 - socket-server.js — the single-server entry point (run with `node socket-server.js`)
-- lib/database.js — MongoDB connection helper used by socket-server.js
 - package.json / package-lock.json — dependencies (Express, Socket.IO, dotenv, axios, socket.io-client)
 - .gitignore
 
-Helper socket server with database integration.
-
-## Environment Variables
-Create a `.env` file in the root of the project with the following keys:
-
-MONGO_URI=<your_mongodb_connection_string>
-MONGO_DB=<your_database_name>
-The `MONGO_URI` and `MONGO_DB` value is loaded inside `lib/database.js` to establish the database connection.
-Make sure to never commit your `.env` file to version control.
+No database, no extra folders — just the helper socket server.
 
 ## Requirements
 - Node.js (recommended v16+ or a current LTS)
 - npm (or yarn)
 
 ## Quickstart — local
-```git clone https://github.com/rishugoyal805/chatterlyAI-Backend1.git
-cd chatterly-backend
+```git clone https://github.com/rishugoyal805/ChatterlyAI-Backend1.git
+cd ChatterlyAI-Backend1
 npm install
 node socket-server.js
 ```
