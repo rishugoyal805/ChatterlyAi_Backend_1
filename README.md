@@ -1,6 +1,6 @@
 ![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)
 
-# ChatterlyAI — Helper Socket Server (chatterlyAI-Backend1)
+# ChatterlyAI — Helper Socket Server (ChatterlyAI_Backend_1)
 
 A lightweight Socket.IO server providing realsitime messaging for the ChatterlyAI ecosystem.
 A lightweight Node.js Socket.IO helper server used by the ChatterlyAI project. This repository contains a focused, single-purpose realtime socket server (socket-server.js) intended to be used as a helper/service — either deployed (e.g., Render) or run locally.
@@ -19,7 +19,7 @@ No database, no extra folders — just the helper socket server.
 - npm (or yarn)
 
 ## Quickstart — local
-```git clone https://github.com/rishugoyal805/ChatterlyAI-Backend1.git
+```git clone https://github.com/rishugoyal805/ChatterlyAI_Backend_1.git
 cd ChatterlyAI-Backend1
 npm install
 node socket-server.js
