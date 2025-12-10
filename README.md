@@ -20,7 +20,7 @@ No database, no extra folders — just the helper socket server.
 
 ## Quickstart — local
 ```git clone https://github.com/rishugoyal805/ChatterlyAI_Backend_1.git
-cd ChatterlyAI-Backend1
+cd ChatterlyAI_Backend_1
 npm install
 node socket-server.js
 ```
